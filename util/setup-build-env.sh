@@ -6,7 +6,7 @@ set -x
 sudo apt-get update
 
 # Base Dependencies
-sudo apt-get install curl build-essential pkg-config
+sudo apt-get install curl build-essential pkg-config subversion
 
 # rustup
 if ! [ -x "$(command -v rustup)" ]; then
