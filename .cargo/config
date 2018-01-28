@@ -1,0 +1,16 @@
+[target.arm-unknown-linux-gnueabihf]
+linker = ".cargo/armv6-toolchain/bin/arm-linux-gnueabihf-gcc"
+
+[target.arm-unknown-linux-gnueabihf.nanomsg]
+rustc-link-search = ["deps/nanomsg/arm/usr/local/lib"]
+rustc-link-lib = ["nanomsg"]
+root = "deps/nanomsg/arm/usr/local/lib"
+
+
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
+
+[target.armv7-unknown-linux-gnueabihf.nanomsg]
+rustc-link-search = ["deps/nanomsg/armv7/usr/local/lib"]
+rustc-link-lib = ["nanomsg"]
+root = "deps/nanomsg/armv7/usr/local/lib"

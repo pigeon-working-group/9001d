@@ -1,0 +1,5 @@
+address = "ws://0.0.0.0:9001"
+publishers = [
+	"ipc:///tmp/gpio_1.ipc",
+	"ipc:///tmp/mcp3008_1.ipc"
+]
