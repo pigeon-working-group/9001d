@@ -6,7 +6,7 @@ set -x
 sudo apt-get update
 
 # Base Dependencies
-sudo apt-get install curl build-essential pkg-config subversion
+sudo apt-get install curl build-essential pkg-config subversion cmake git -y
 
 # rustup
 if ! [ -x "$(command -v rustup)" ]; then
@@ -20,13 +20,16 @@ fi
 # ARMv7 toolchain
 sudo dpkg --add-architecture armhf
 sudo apt-get update
-sudo apt-get install crossbuild-essential-armhf
+sudo apt-get install crossbuild-essential-armhf -y
 
 
 # ARMv6 toolchain
 if [ ! -d .cargo/armv6-toolchain ]; then
-	svn export https://github.com/raspberrypi/tools/trunk/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian/ .cargo/armv6-toolchain
+	svn export https://github.com/raspberrypi/tools/trunk/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/ .cargo/armv6-toolchain
 fi
+
+# Make sure rustup is in PATH
+source ~/.profile
 
 rustup target add arm-unknown-linux-gnueabihf
 rustup target add armv7-unknown-linux-gnueabihf
