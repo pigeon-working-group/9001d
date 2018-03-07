@@ -1,9 +1,10 @@
 ## Setup
 ### Host setup
-#### Mac
+#### macOS
 ```bash
 brew install nanomsg --HEAD
-brew install python3 rsync
+brew install python3 rsync cmake
+curl https://sh.rustup.rs -sSf | sh
 ```
 
 ### VM setup
@@ -54,15 +55,9 @@ brew install python3 rsync
 	sudo reboot
 	```
 
-* (*Optional*) Setup environment variables
-
-	```bash
-	make env
-	```
-
-	Use something like [direnv](https://github.com/direnv/direnv) to automatically run this file.
-
 * Setup cross-compile environment
+
+	`make` commands can now be issued on the host machine if port forwarding was set up properly, 
 
 	```bash
 	make setup
@@ -70,7 +65,7 @@ brew install python3 rsync
 
 
 ## Cross-compiling
-Use `make build` to generate foreign binaries and `make transfer` to copy them over to the target.
+Use `make build` (on host) to generate foreign binaries and `make transfer` (on host) to copy them over to the target.
 
 ### Environment Variables
 * `TARGET_ADDRESS`  
@@ -97,3 +92,7 @@ Use `make build` to generate foreign binaries and `make transfer` to copy them o
 * `TARGET`  
 	Defaults to `armv7`, set to `arm` for ARMv6 builds.  
 	Example: `arm`
+
+Run `make env` (on host) to generate a `.envrc` containing all required environment variables.
+
+Use something like [direnv](https://github.com/direnv/direnv) to automatically run this file.
