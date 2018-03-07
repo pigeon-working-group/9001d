@@ -1,5 +1,10 @@
 address = "ws://0.0.0.0:9001"
 publishers = [
 	"ipc:///tmp/gpio_1.ipc",
-	"ipc:///tmp/mcp3008_1.ipc"
+	"ipc:///tmp/mcp3008_1.ipc",
+	"ipc:///tmp/lsm9ds0.ipc",
+	"tcp://pigeon9001.local:10001"
 ]
+exp_deceleration = 100.0
+tolerance = 5.0
+target_altitude = 8.0 
