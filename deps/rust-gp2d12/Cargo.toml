@@ -1,0 +1,7 @@
+[package]
+name = "gp2d12"
+version = "1.0.0"
+authors = ["Philip Trauner <philip.trauner@arztpraxis.io>"]
+
+[dependencies]
+mcp3008 = "1.0.0"
