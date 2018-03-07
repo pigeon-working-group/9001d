@@ -1,7 +1,7 @@
-use std::path::Path;
 use std::io::Write;
-use std::time::Duration;
+use std::path::Path;
 use std::thread::sleep;
+use std::time::Duration;
 
 use clap::{App, Arg};
 use config::{Config, ConfigError, File};
@@ -10,17 +10,22 @@ use nanomsg::Socket;
 use rand::distributions::{IndependentSample, Range};
 use rand::thread_rng;
 
+use colored::*;
+
 use types::{serialize, PubMessage};
 
 pub fn publish_random_values(
     mut socket: Socket,
     mut msg: PubMessage,
     sleep_duration: Duration,
-    between: Range<i16>,
+    between: Range<f32>,
 ) {
+    println!("{}", "Publishing random values".yellow());
+
     let mut rng = thread_rng();
     loop {
-        msg.value = between.ind_sample(&mut rng);
+        msg = fill_message_decimal(between.ind_sample(&mut rng), msg);
+
         if let Err(err) = socket.write_all(&serialize(&msg).unwrap()[..]) {
             panic!(err);
         }
@@ -32,6 +37,22 @@ pub fn publish(socket: &mut Socket, msg: &PubMessage) {
     if let Err(err) = socket.write_all(&serialize(msg).unwrap()[..]) {
         panic!(err);
     }
+}
+
+pub fn fill_message_decimal(decimal: f32, mut msg: PubMessage) -> PubMessage {
+    msg.decimal = decimal;
+
+    msg.integral = decimal as i16;
+
+    msg
+}
+
+pub fn fill_message_integral(integral: i16, mut msg: PubMessage) -> PubMessage {
+    msg.integral = integral;
+
+    msg.decimal = msg.integral as f32;
+
+    msg
 }
 
 pub fn config_stem(path: &str) -> Option<&str> {
