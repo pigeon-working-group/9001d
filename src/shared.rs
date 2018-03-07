@@ -5,6 +5,7 @@ extern crate serde_derive;
 
 extern crate bincode;
 extern crate clap;
+extern crate colored;
 extern crate config;
 extern crate nanomsg;
 extern crate rand;
