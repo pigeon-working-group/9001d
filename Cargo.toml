@@ -14,10 +14,6 @@ serde_json = "1.0.8"
 iron = "0.6"
 staticfile = "0.5.0"
 mount = "0.4"
-bodyparser = "0.8.0"
-persistent = "0.4.0"
-
-quick-error = "1.2.1"
 
 config = "0.7.0"
 
@@ -25,15 +21,23 @@ nanomsg = "0.6.2"
 
 rppal = "0.2"
 
-structopt = "0.1.7"
-structopt-derive = "0.1.6"
+structopt = "0.2.3"
 
 clap = "2.29.0"
 
 rand = "0.4.1"
 
+colored = "1.6"
+
+mcp3008 = "1.0.0"
+
+# Only used to sort f32 arrays
+quickersort = "3.0"
+
+[dependencies.gp2d12]
+path = "deps/rust-gp2d12"
+
 [target.'cfg(target_os = "linux")'.dependencies]
-spidev = "0.3.0"
 [dependencies.i2cdev]
 git = "https://github.com/rust-embedded/rust-i2cdev.git"
 rev = "bc12c4e50b1a61deffcd183e84c3e829a83db3b1"
@@ -57,3 +61,7 @@ path = "src/mcp3008_pub/main.rs"
 [[bin]]
 name = "lsm9ds0_pub"
 path = "src/lsm9ds0_pub/main.rs"
+
+[[bin]]
+name = "gp2d12_pub"
+path = "src/gp2d12_pub/main.rs"
