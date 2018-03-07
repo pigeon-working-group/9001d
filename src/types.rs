@@ -1,13 +1,14 @@
 use bincode::Bounded;
-use bincode::serialize as bincode_serialize;
 use bincode::deserialize as bincode_deserialize;
+use bincode::serialize as bincode_serialize;
 
-use std::mem::size_of;
 use std::fmt::{self, Debug, Display};
+use std::mem::size_of;
 
 lazy_static! {
     // There appears to by a 2 byte overhead when serializing to bincode
-    static ref MSG_SIZE_LIMIT: Bounded = Bounded(size_of::<PubMessage>() as u64 + 2);
+    static ref MSG_SIZE_LIMIT: Bounded = Bounded(
+        size_of::<PubMessage>() as u64 + 8);
 }
 
 macro_rules! define_pub_types {
@@ -17,21 +18,18 @@ macro_rules! define_pub_types {
         pub enum $Name {
             $($Variant),*,
         }
-        pub const PUB_TYPES: &'static [$Name] = &[$($Name::$Variant),*];      
+        pub const PUB_TYPES: &'static [$Name] = &[$($Name::$Variant),*];
     }
 }
 
 define_pub_types!(PubType {
     PressureSensorTemperature,
     PressureSensorPressure,
-    ShortDistanceSensor,
     LongDistanceSensor,
-    AccelerometerX,
-    AccelerometerY,
     AccelerometerZ,
     GyroscopeX,
     GyroscopeY,
-    GyroscopeZ,
+    IsFalling,
     PowerButton,
 });
 
@@ -41,18 +39,18 @@ impl Display for PubType {
     }
 }
 
-
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct PubMessage {
     pub pub_type: PubType,
-    pub value: i16,
+    pub integral: i16,
+    pub decimal: f32,
 }
 
 pub fn str_to_pub_type(pub_type: &str) -> Option<PubType> {
     for pub_type_ in PUB_TYPES {
-    	if pub_type_.to_string() == pub_type {
-    		return Some(pub_type_.clone());
-    	}
+        if pub_type_.to_string() == pub_type {
+            return Some(pub_type_.clone());
+        }
     }
     None
 }
