@@ -6,4 +6,4 @@ testing*
 src/dump.rs
 .envrc
 .cargo/armv6-toolchain
-deps/
+deps/nanomsg
